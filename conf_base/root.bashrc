@@ -110,7 +110,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Because we love nice colors in shell !
 
-PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\e[m\]\[\e[0;35m\]'
+
+#PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\e[m\]\[\e[0;35m\]'
+
+export PS1="\[\e[00;37m\][\[\e[0m\]\[\e[00;36m\]\h\[\e[0m\]\[\e[00;37m\]] \[\e[0m\]\[\e[00;31m\]\u\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;34m\]\w\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\] \[\e[0;35m\]"
 trap 'echo -ne "\e[0m"' DEBUG

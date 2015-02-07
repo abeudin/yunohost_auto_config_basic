@@ -90,6 +90,15 @@ if [ $create_user == 'y' ];
 	fi;
 fi;
 
+read -e -p "Add user $user to sudo group ? (yn) : " -i "y" sudo_user;
+if [ $sudo_user == 'y' ];
+	then adduser $user sudo;
+	echo -e "\n$ok User \" $user \" added to sudo group";
+        else echo -e "\n$ok We skip this part then";
+        fi;
+fi;
+
+
 # Change of standard SSH port
 echo -e "\n$info Default SSH port : 22\n";
 read -e -p "Do you want to change the default port ? (yn) : " -i "y" port;
@@ -104,11 +113,12 @@ fi;
 
 
 echo -e "\n$info Limit connections to a single user\n";
-read -e -p "Do you want SSH to ONLY accept connections from user \" $user \" ? (yn) : " -i "y" allow_user;
+read -e -p "Do you want SSH to ONLY accept connections from user \" $user \" on port $port ? (yn) : " -i "y" allow_user;
 if [ $allow_user == 'y' ];
 	then echo -e "\n$ok Only allow user \" $user \" to connect remotely from port $port";
 	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
 	else echo -e "\n$info We skip this part then\n";
+        sed -i "s/PermitRootLogin no/PermitRootLogin yes/g" /etc/ssh/sshd_config;
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
